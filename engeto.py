@@ -1,4 +1,5 @@
 #!/usr/bin/env pytest
+#discord - duck2492
 
 from playwright.sync_api import Page, expect
 import re
@@ -17,8 +18,6 @@ def test_contact_page(page: Page):
     page.get_by_role("button", name = "Souhlasím jen s nezbytnými").click(timeout=1000)
     page.get_by_text("Kontakt", exact=True).first.click(timeout=3000)
     expect(page).to_have_url("https://engeto.cz/kontakt/")
-    #mail = page.get_by_text("info@engeto.com")
-    #expect(mail).to_have_attribute("href","mailto:info@engeto.com")
     for mail in page.get_by_text("info@engeto.com").all():
         for mail_parent in page.locator("a").filter(has=mail).all():
             expect(mail_parent).to_have_attribute("href", "mailto:info@engeto.com")
